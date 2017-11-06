@@ -9,7 +9,7 @@ services:
     volumes: &appvolumes
       - ./nginx/sites-enabled:/etc/nginx/conf.d
     ports:
-      - 80:80
+      - 80
     networks: &appnetworks
       - www
 
@@ -26,7 +26,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3306
     networks: *appnetworks
     env_file: env/mysql.env
 
