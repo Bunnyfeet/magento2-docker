@@ -8,11 +8,6 @@ services:
       - db
       - phpfpm
     volumes: 
-      - type: volume
-        source: appdata
-        target: /var/www/html
-        volume:
-          nocopy: true
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/sites-enabled:/etc/nginx/conf.d
       - ./src/ce-2.2.0:/var/www/html
