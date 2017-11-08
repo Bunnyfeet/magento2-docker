@@ -38,15 +38,6 @@ services:
 
 volumes:
   dbdata:
-    driver_opts:
-      type: none
-      device: $PWD/db/data
-      o: bind
   appdata:
-    driver_opts:
-      type: none
-      device: $PWD/src/ce-2.2.0
-      o: bind
-
 networks:
   www:
