@@ -1,0 +1,8 @@
+{
+    "http-basic": {
+        "repo.magento.com": {
+            "username": "public key from https://marketplace.magento.com/customer/accessKeys/ ",
+            "password": "private key from https://marketplace.magento.com/customer/accessKeys/ "
+        }
+    }
+}

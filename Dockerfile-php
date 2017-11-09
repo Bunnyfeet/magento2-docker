@@ -1,0 +1,7 @@
+FROM bunnyfeet/magento2-docker-php:7.1-fpm
+
+WORKDIR /var/www/html/magento2
+COPY auth.json /auth.json
+RUN cat /auth.json >> ~/.composer/auth.json
+RUN composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/html/magento2 2.2.1
+VOLUME /var/www/html/magento2

@@ -10,18 +10,23 @@ services:
     volumes: 
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/sites-enabled:/etc/nginx/conf.d
-      - appdata:/var/www/html
+      - appdata:/var/www/html/magento2
     ports:
       - 80:80
     networks: &appnetworks
       - www
+    depends_on:
+      - phpfpm
 
   phpfpm:
-    image: bunnyfeet/magento2-docker-php:latest
+    build:
+      context: .
+      dockerfile: "Dockerfile-php"
     links:
       - db
     volumes: 
-      - appdata:/var/www/html
+      - appdata:/var/www/html/magento2
+      - cache:/cache
     networks: *appnetworks
     env_file: env/setup.env
 
@@ -39,5 +44,6 @@ services:
 volumes:
   dbdata:
   appdata:
+  cache:
 networks:
   www:
