@@ -11,6 +11,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/sites-enabled:/etc/nginx/conf.d
       - appdata:/var/www/html/magento2
+      - ./magento/app:/var/www/html/magento2/app
     ports:
       - 80:80
     networks: &appnetworks
@@ -19,13 +20,17 @@ services:
       - phpfpm
 
   phpfpm:
-    build:
-      context: .
-      dockerfile: "Dockerfile-php"
+    #build:
+    #  context: .
+    #  dockerfile: "Dockerfile-php"
+    image: bunnyfeet/magento2-docker-php:7.1-fpm
     links:
       - db
     volumes: 
       - appdata:/var/www/html/magento2
+      - ./auth.json:/home/root/.composer/auth.json
+      - ./magento/app/code:/var/www/html/magento2/app/code
+      - ./magento/app/design:/var/www/html/magento2/app/design
       - cache:/cache
     networks: *appnetworks
     env_file: env/setup.env
@@ -41,9 +46,15 @@ services:
     networks: *appnetworks
     env_file: env/mysql.env
 
+  redis:
+    image: redis:alpine
+    expose:
+      - 6379
+    networks: *appnetworks
+
 volumes:
-  dbdata:
   appdata:
+  dbdata:
   cache:
 networks:
   www:
